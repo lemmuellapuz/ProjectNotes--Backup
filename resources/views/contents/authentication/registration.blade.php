@@ -32,6 +32,9 @@
                         </div>
                     </div>
 
+                    {!! NoCaptcha::renderJs() !!}
+                    {!! NoCaptcha::display() !!}
+
                     <div class="col-12 mt-3">
                         <input class="btn btn-primary" type="submit" value="Sign Up">
                     </div>

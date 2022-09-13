@@ -26,7 +26,16 @@ class RegistrationRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required|min:6|confirmed'
+            'password' => 'required|min:6|confirmed',
+            'g-recaptcha-response' => 'required|captcha'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'g-recaptcha-response.required' => 'Please verify that you are not a robot.',
+            'captcha' => 'Captcha error! try again later or contact site admin.'
         ];
     }
 }
