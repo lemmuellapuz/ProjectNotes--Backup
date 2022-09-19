@@ -21,10 +21,10 @@ class LoginController extends Controller
 
     public function signIn(LoginRequest $request) {
 
-        $remember = false;
-        $request->remember? $remember=true : $remember=false;
+        // $remember = false;
+        // $request->remember? $remember=true : $remember=false;
 
-        if( Auth::attempt(['email' => $request->email, 'password'=>$request->password], $remember) ) {
+        if( Auth::attempt(['email' => $request->email, 'password'=>$request->password]) ) {
             info($request->header('User-Agent'));
             Auth::logoutOtherDevices($request->password);
 
