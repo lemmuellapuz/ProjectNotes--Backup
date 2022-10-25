@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'local'),
+    'default' => env('FILESYSTEM_DISK', 'ftp'),
 
     /*
     |--------------------------------------------------------------------------
@@ -54,6 +54,18 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
+        ],
+
+        'ftp' => [
+            'driver' => 'ftp',
+            'host' => 'juantracegold.com',
+            'username' => 'ftpaccount@e-realityinnovators.com',
+            'password' => 'e-realityinnovators',
+            'port' => 21,
+            'passive' => true,
+            'ssl' => true,
+            'ignorePassiveAddress' => true,
+            'root' => '/',
         ],
 
     ],

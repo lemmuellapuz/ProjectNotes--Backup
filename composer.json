@@ -12,6 +12,8 @@
         "laravel/sanctum": "^3.0",
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.7",
+        "league/flysystem-ftp": "^3.4",
+        "league/flysystem-sftp": "^3.6",
         "simplesoftwareio/simple-qrcode": "~4",
         "spatie/laravel-permission": "^5.5",
         "spatie/simple-excel": "^2.1",

@@ -9,7 +9,9 @@
                 <p>{{$note->content}}</p>
             </div>
             <div class="card-footer">
-                <a href="{{ route('notes.edit', ['note'=> $note]) }}" class="btn btn-primary">Edit</a>
+                @can('edit-note')
+                    <a href="{{ route('notes.edit', ['note'=> $note]) }}" class="btn btn-primary">Edit</a>
+                @endcan
                 <a href="{{ route('notes.index') }}" class="btn btn-secondary">Back</a>
             </div>
         </div>

@@ -22,7 +22,7 @@ class NotesController extends Controller
 
     public function __construct()
     {
-        $this->authorizeResource(Note::class);
+        $this->authorizeResource(Note::class, 'note');
     }
    
     public function index()
@@ -34,21 +34,33 @@ class NotesController extends Controller
 
     public function table()
     {
-        $notes = Note::where('user_id', Auth::user()->id);
+        $notes = "";
+        
+        Auth::user()->roles->pluck('name')->first() == 'admin' ? 
+        $notes = Note::whereNot('created_at', '') : $notes = Note::where('user_id', Auth::user()->id);
+        
 
         return DataTables::of($notes)
         ->addColumn('actions', function($row){
-            $qr_btn = '<a class="btn btn-primary" onclick="openQrModal(\''.$row->qr_code.'\')">Download QR</a>';
-            $update_btn = '<a class="btn btn-secondary" href="'.route('notes.edit', ['note' => $row]).'">Edit</a>';
-            $delete_btn = '
+
+            $btn = '';
+
+            if(Auth::user()->can('view-note'))
+                $btn = $btn . '<a class="btn btn-primary mx-1" onclick="openQrModal(\''.$row->qr_code.'\')">Download QR</a>';
+            
+            if(Auth::user()->can('update-note'))
+                $btn = $btn . '<a class="btn btn-secondary mx-1" href="'.route('notes.edit', ['note' => $row]).'">Edit</a>';
+
+            if(Auth::user()->can('delete-note'))
+                $btn = $btn . '
                 <form action="'. route('notes.destroy', ['note' => $row]) .'" method="POST">
                     '. method_field('DELETE') .'
                     '.csrf_field().'
-                    <input type="submit" value="Delete" class="btn btn-danger">
+                    <input type="submit" value="Delete" class="btn btn-danger mx-1">
                 </form>
             ';
 
-            return $update_btn . $qr_btn . $delete_btn;
+            return '<div class="d-flex">' . $btn . '</div>';
         })
         ->rawColumns(['actions'])
         ->make(true);

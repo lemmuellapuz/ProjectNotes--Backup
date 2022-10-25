@@ -6,7 +6,7 @@
 
         <div class="row">
             @include('components.alerts')
-
+            
             @can('create-note')
             <div class="col-auto">
                 <a class="btn btn-primary" href="{{ route('notes.create') }}">Add Note</a>
@@ -28,7 +28,7 @@
                             <th>ID</th>
                             <th>Title</th>
                             <th>Content</th>
-                            <th>Action</th>
+                            <th class="col-4">Action</th>
                         </tr>
                     </thead>
                     <tbody>

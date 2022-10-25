@@ -17,11 +17,13 @@ class RegistrationController extends Controller
 
     public function signUp(RegistrationRequest $request) {
         
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
+
+        $user->assignRole('user');
 
         return redirect()->route('login')->with('success', 'User registered successfully.');
 
